@@ -6,15 +6,15 @@
 # 1 "<built-in>" 2
 # 1 "vendor/mediatek/proprietary/hardware/fstab/mt6789/fstab.in.emmc" 2
 # 156 "vendor/mediatek/proprietary/hardware/fstab/mt6789/fstab.in.emmc"
-system /system ext4 ro wait,slotselect,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
+system /system erofs ro wait,slotselect,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
 
-vendor /vendor ext4 ro wait,slotselect,avb,logical,first_stage_mount
-
-
-product /product ext4 ro wait,slotselect,avb,logical,first_stage_mount
+vendor /vendor erofs ro wait,slotselect,avb,logical,first_stage_mount
 
 
-odm /odm ext4 ro wait,slotselect,avb,logical,first_stage_mount
+product /product erofs ro wait,slotselect,avb,logical,first_stage_mount
+
+
+
 
 
 vendor_dlkm /vendor_dlkm ext4 ro wait,slotselect,avb,logical,first_stage_mount
