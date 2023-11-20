@@ -3,7 +3,7 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
 # mount point       fs    device                device2                  flags
-/metadata           ext4  /dev/block/by-name/metadata
+/metadata           ext4  /dev/block/by-name/metadata                    flags=display="Metadata";wipeingui
 /data               f2fs  /dev/block/by-name/userdata                    flags=fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption
 /boot               emmc  /dev/block/by-name/boot                        flags=backup=1;slotselect;flashimg=1
 /vbmeta_vendor      emmc  /dev/block/by-name/vbmeta_vendor               flags=display="VBMeta (Vendor)";slotselect;flashimg=1
@@ -18,8 +18,8 @@
 /usb_otg            auto  /dev/block/sda1       /dev/block/sda   /dev/block/sdd1     flags=display="USB-OTG";storage;wipeingui;removable;backup=0
 
 # Flashable logical partitions
-/system_image       emmc  /dev/block/mapper/system                       flags=backup=1;display="System Image";slotselect;flashimg=1
-/system_ext_image   emmc  /dev/block/mapper/system_ext                   flags=backup=1;display="System_ext Image";slotselect;flashimg=1
-/vendor_image       emmc  /dev/block/mapper/vendor                       flags=backup=1;display="Vendor Image";slotselect;flashimg=1
-/product_image      emmc  /dev/block/mapper/product                      flags=backup=1;display="Product Image";slotselect;flashimg=1
-/odm_image          emmc  /dev/block/mapper/odm_dlkm                     flags=backup=1;display="ODM Image";slotselect;flashimg=1
+/system_image       emmc  system                                         flags=backup=1;display="System Image";flashimg=1
+/system_ext_image   emmc  system_ext                                     flags=backup=1;display="System_ext Image";flashimg=1
+/vendor_image       emmc  vendor                                         flags=backup=1;display="Vendor Image";flashimg=1
+/product_image      emmc  product                                        flags=backup=1;display="Product Image";flashimg=1
+/odm_image          emmc  odm_dlkm                                       flags=backup=1;display="ODM Image";flashimg=1
