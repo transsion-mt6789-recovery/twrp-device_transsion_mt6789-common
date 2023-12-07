@@ -47,6 +47,10 @@ subsystem dma_heap
 /dev/dma_heap/system-uncached      0444   system     system
 /dev/dma_heap/system-secure        0444   system     system
 
+#SDD: add ANDROIDRBE-357 by jixue.tang for system monitor feature. Start
+/dev/ensignal   0666   root   root
+#SDD: add ANDROIDRBE-357 by jixue.tang for system monitor feature. End
+
 # kms driver for drm based gpu
 /dev/dri/*                0666   root       graphics
 
