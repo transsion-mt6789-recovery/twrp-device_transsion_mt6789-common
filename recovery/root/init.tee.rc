@@ -18,7 +18,6 @@ service mobicore /vendor/bin/mcDriverDaemon --sfs-reformat --P1 /mnt/vendor/pers
 	-r /vendor/app/mcRegistry/036c0000000000000000000000000000.drbin \
 	-r /vendor/app/mcRegistry/037c0000000000000000000000000000.drbin \
 	-r /vendor/app/mcRegistry/40188311faf343488db888ad39496f9a.drbin \
-	-r /vendor/app/mcRegistry/070c0000000000000000000000000000.drbin \
 	-r /vendor/app/mcRegistry/090b0000000000000000000000000000.drbin \
 	-r /vendor/app/mcRegistry/0f5eed3c3b5a47afacca69a84bf0efad.drbin \
 	-r /vendor/app/mcRegistry/07060000000000000000000000007169.drbin \
@@ -30,7 +29,7 @@ service mobicore /vendor/bin/mcDriverDaemon --sfs-reformat --P1 /mnt/vendor/pers
 	-r /vendor/app/mcRegistry/07090000000000000000000000000000.drbin \
 	-r /vendor/app/mcRegistry/6b3f5fa0f8cf55a7be2582587d62d63a.drbin \
 	-r /vendor/app/mcRegistry/5020170115e016302017012521300000.drbin
-	user root
+    user root
     group root
     disabled
     seclabel u:r:recovery:s0
@@ -58,7 +57,6 @@ service mobicore /vendor/bin/mcDriverDaemon --sfs-reformat --P1 /mnt/vendor/pers
 # 9073f03a9618383bb1856eb3f990babd.drbin : m4u
 # 6b3f5fa0f8cf55a7be2582587d62d63a.drbin : hdcp
 
-
 on init
     #create mountpoint for /mnt/vendor/persist partition
     mkdir /mnt/vendor/persist 0771 system system
@@ -72,7 +70,9 @@ on post-fs
 
     # Create mcRegistry to store failure record
     mkdir /mnt/vendor/persist/mcRegistry 0771 system system
-    chown system system /mnt/vendor/persist/mcRegistry/Store_1.tf
+    mkdir /mnt/vendor/persist/paytrigger
+    chown system system /mnt/vendor/persist/paytrigger
+    chmod 0777 /mnt/vendor/persist/paytrigger
 
 on post-fs-data
     # Create /data/vendor/key_provisioning dir and get proper encryption policy installed
@@ -83,21 +83,17 @@ on post-fs-data
 on property:ro.crypto.state=unencrypted
     write /proc/bootprof "MOBICORE: create /data/vendor/mcRegistry ++ (unencrypted)"
     mkdir /data/vendor/mcRegistry 0775 system system
-    chown system system /mnt/vendor/persist/mcRegistry/Store_1.tf
     write /proc/bootprof "MOBICORE: create /data/vendor/mcRegistry -- (unencrypted)"
 
 # Normal mode, FBE
 on property:ro.crypto.type=file && property:ro.crypto.state=encrypted
     write /proc/bootprof "MOBICORE: create /data/vendor/mcRegistry ++ (FBE encrypted)"
     mkdir /data/vendor/mcRegistry 0775 system system
-    chown system system /mnt/vendor/persist/mcRegistry/Store_1.tf
     write /proc/bootprof "MOBICORE: create /data/vendor/mcRegistry -- (FBE encrypted)"
 
 # Normal mode, FDE
 on property:vold.decrypt=trigger_restart_framework
     write /proc/bootprof "MOBICORE: create /data/vendor/mcRegistry ++ (FDE encrypted)"
     mkdir /data/vendor/mcRegistry 0775 system system
-    chown system system /mnt/vendor/persist/mcRegistry/Store_1.tf
-    write /proc/bootprof "MOBICORE: create /data/vendor/mcRegistry -- (FDE encrypted)"
-    
- 
+
+

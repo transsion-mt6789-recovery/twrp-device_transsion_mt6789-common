@@ -3,7 +3,7 @@
         manifest.xml
 -->
 <manifest version="4.0" type="framework">
-    <hal format="hidl">
+    <hal format="hidl" max-level="6">
         <name>android.frameworks.displayservice</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -87,87 +87,12 @@
         <name>netutils-wrapper</name>
         <version>1.0</version>
     </hal>
-    <hal format="hidl">
-        <name>vendor.vivo.hardware.camera.cameralog</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>ICameraLogSystem</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::ICameraLogSystem/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.vivo.hardware.camera.provider</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IVivoCameraProvider</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IVivoCameraProvider/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.vivo.hardware.camera.vop</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>ICameraVOP</name>
-            <instance>default/0</instance>
-        </interface>
-        <fqname>@1.0::ICameraVOP/default/0</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.vivo.hardware.camera3rd.provider</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>ICamera3rdProvider</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::ICamera3rdProvider/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.vivo.hardware.nativecamera.provider</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>INativeCameraProvider</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::INativeCameraProvider/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.vivo.hardware.osccamera.provider</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IOscCameraProvider</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IOscCameraProvider/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.vivo.hardware.wifi.keystore</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IKeystoreExt</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IKeystoreExt/default</fqname>
-    </hal>
-    <hal format="aidl">
-        <name>android.system.keystore2</name>
-        <interface>
-            <name>IKeystoreService</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
     <system-sdk>
         <version>28</version>
         <version>29</version>
         <version>30</version>
         <version>31</version>
+        <version>32</version>
+        <version>33</version>
     </system-sdk>
 </manifest>

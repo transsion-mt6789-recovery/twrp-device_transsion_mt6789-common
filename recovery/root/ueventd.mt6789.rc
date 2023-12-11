@@ -59,7 +59,8 @@
 /dev/fw_log_wifi          0660   wifi     wifi
 
 # FMRadio
-/dev/fm                   0660   media     media
+# NFBD:modify  for dev/fm 0660->0666 by yuguo.zhang 20220406
+/dev/fm                   0666   media     media
 
 # NFC
 /dev/st21nfc              0660   nfc        radio
@@ -90,6 +91,10 @@
 
 #v4l2 codec
 /dev/vcu    0660 camera system
+
+#vdec-fmt
+/dev/vdec-fmt   0660 media system
+/dev/fmt_sync   0660 system system
 
 #v4l2 camera
 /dev/mtk_hcp     0660 camera system
