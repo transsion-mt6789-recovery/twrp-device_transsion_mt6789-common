@@ -48,3 +48,4 @@
 /vendor_image		emmc		/dev/block/bootdevice/by-name/vendor									flags=backup;flashimg
 /system_ext_image	emmc		/dev/block/bootdevice/by-name/system_ext								flags=display="System_EXT Image";backup;flashimg
 /product_image		emmc		/dev/block/bootdevice/by-name/product									flags=display="Product Image";backup;flashimg
+/vendor_dlkm_image	emmc		/dev/block/bootdevice/by-name/vendor_dlkm								flags=display="VendorDLKM Image";backup;flashimg
