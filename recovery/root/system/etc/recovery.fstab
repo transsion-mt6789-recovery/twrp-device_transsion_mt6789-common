@@ -12,7 +12,9 @@ product				/product		erofs		ro																	wait,slotselect,logical
 product				/product		ext4		ro																	wait,slotselect,logical
 system_ext			/system_ext		erofs		ro																	wait,slotselect,logical
 system_ext			/system_ext		ext4		ro																	wait,slotselect,logical
+vendor_dlkm			/vendor_dlkm		erofs		ro																	wait,slotselect,logical
 vendor_dlkm			/vendor_dlkm		ext4		ro																	wait,slotselect,logical
+odm_dlkm			/odm_dlkm		erofs		ro																	wait,slotselect,logical
 odm_dlkm			/odm_dlkm		ext4		ro																	wait,slotselect,logical
 tr_mi				/tr_mi			ext4		ro																	wait,slotselect,logical,nofail
 tr_theme			/tr_theme		ext4		ro																	wait,slotselect,logical,nofail
