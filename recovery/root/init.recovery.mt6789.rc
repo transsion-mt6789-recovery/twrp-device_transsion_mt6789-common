@@ -1,5 +1,4 @@
 import /init.tee.rc
-import /init.custom.rc
 import /init.device.rc
 
 on init
@@ -8,29 +7,18 @@ on init
     setprop sys.usb.ffs.aio_compat 0
     export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw
     setprop crypto.ready 1
-
-on fs && property:ro.debuggable=0
-    write /sys/class/udc/musb-hdrc/device/cmode 2
-    start adbd
-
-on fs
-    install_keyring
-    wait /dev/block/platform/soc/11270000.ufshci
-    symlink /dev/block/platform/soc/11270000.ufshci /dev/block/bootdevice
-
-# We need vold early for metadata encryption
-on early-fs
-    start vold
-
-on late-fs
-    # Mount RW partitions which need run fsck
-    mount_all /first_stage_ramdisk/fstab.mt6789 --late
-
-on post-fs
     start boot-hal-1-2
 
-    symlink /dev/block/mapper/pl_a /dev/block/by-name/preloader_raw_a
-    symlink /dev/block/mapper/pl_b /dev/block/by-name/preloader_raw_b
+on fs
+    wait /dev/block/platform/soc/11270000.ufshci
+    symlink /dev/block/platform/soc/11270000.ufshci /dev/block/bootdevice
+    install_keyring
+
+on boot
+    setprop sys.usb.config adb
+
+on post-fs-data
+    start health-hal-2-1
 
 on boot
     start mtk.plpath.utils.link
@@ -41,11 +29,9 @@ on property:persist.vendor.mtk.pl_lnk=1
     symlink /dev/block/mapper/pl_a /dev/block/platform/bootdevice/by-name/preloader_raw_a
     symlink /dev/block/mapper/pl_b /dev/block/platform/bootdevice/by-name/preloader_raw_b
 
-# FSTAB_RAW2(lk2,bootloader2) of fstab.in.emmc, but without bootloader2 mount point
     symlink /dev/block/by-name/lk1 /dev/block/by-name/bootloader1
     symlink /dev/block/by-name/lk2 /dev/block/by-name/bootloader2
 
-# Fix ro.vendor.mtk_ufs_support remove issue of recovery mode
 on property:vendor.mtk.boot0_linka=1
     symlink /dev/block/sda /dev/block/mmcblk0boot0
 
@@ -86,39 +72,10 @@ service vendor.keymint-trustonic /vendor/bin/hw/android.hardware.security.keymin
     user nobody
     seclabel u:r:recovery:s0
 
-on property:crypto.ready=1
-    start vendor.keymint-trustonic
-
-on property:hwservicemanager.ready=true
+on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
     start mobicore
     start vendor.gatekeeper-1-0
     start vendor.keymint-trustonic
 
-on property:ro.crypto.state=unsupported
-    stop mobicore
-    stop vendor.gatekeeper-1-0
-    stop vendor.keymint-trustonic
-
-on property:ro.crypto.state=unencrypted
-    stop mobicore
-    stop vendor.gatekeeper-1-0
-    stop vendor.keymint-trustonic
-
-on property:twrp.decrypt.done=true
-    stop mobicore
-    stop vendor.gatekeeper-1-0
-    stop vendor.keymint-trustonic
-
-on property:crypto.ready=0
-    stop mobicore
-    stop vendor.gatekeeper-1-0
-    stop vendor.keymint-trustonic
-
-on post-fs-data
-    mkdir /data/vendor_de 0770 system system
-    mkdir /data/vendor_de/0 0770 system system
-    mkdir /data/vendor_de/0/cryptoeng 0770 system system
-
-    start health-hal-2-1
-    setprop sys.usb.config adb
-
+on property:servicemanager.ready=true
+    setprop sys.boot_completed 1
